@@ -129,7 +129,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----------------- DATA PIPELINE -----------------
-excel_path = r"c:\Users\Mahmoud\Desktop\freelanace_project\New folder\Egypt_Marketing_Campaign_Dashboard (1).xlsx"
+excel_path = "Egypt_Marketing_Campaign_Dashboard (1).xlsx"
 
 @st.cache_data
 def load_excel_data(path):
