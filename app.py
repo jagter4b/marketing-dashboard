@@ -6,7 +6,7 @@ import numpy as np
 
 # Set Streamlit Page Configuration
 st.set_page_config(
-    page_title="Egypt Marketing Campaign Dashboard - Summer Connect 2026",
+    page_title="Marketing Command Center - Summer Connect 2026",
     page_icon="🏆",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -219,7 +219,7 @@ if st.sidebar.button("Generate CSV of Active Metrics"):
 # ----------------- MAIN APP HEADER -----------------
 st.markdown("""
 <div class="header-container">
-    <div class="header-title">EGYPT MARKETING CAMPAIGN DASHBOARD</div>
+    <div class="header-title">MARKETING COMMAND CENTER</div>
     <div class="header-subtitle">Interactive Performance Tracker — [Confidential Client] "Summer Connect" 2026</div>
 </div>
 """, unsafe_allow_html=True)
