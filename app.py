@@ -201,8 +201,8 @@ st.sidebar.checkbox("Phase 6: Wrap-up & Evaluation", value=False, disabled=False
 
 st.sidebar.markdown("""
 <div style="background-color: #111a2e; border: 1px solid #1e2d4a; border-radius: 8px; padding: 15px; margin-top: 20px;">
-    <h4 style="color: #d4af37; margin: 0 0 5px 0; font-size: 14px;">📤 Export Interactive Report</h4>
-    <p style="color: #a0aec0; font-size: 11px; margin-bottom: 10px;">Download custom filtered Excel tables for executive briefing.</p>
+    <h4 style="color: #d4af37; margin: 0 0 5px 0; font-size: 14px;">📤 Export Report</h4>
+    <p style="color: #a0aec0; font-size: 11px; margin-bottom: 10px;">Download custom filtered Excel tables.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -220,7 +220,7 @@ if st.sidebar.button("Generate CSV of Active Metrics"):
 st.markdown("""
 <div class="header-container">
     <div class="header-title">Campaign Performance Analysis</div>
-    <div class="header-subtitle">Interactive Performance Tracker — [Confidential Client] "Summer Connect" 2026</div>
+    <div class="header-subtitle">Performance Tracker — [Confidential Client] "Summer Connect" 2026</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -301,7 +301,7 @@ with tab1:
     chart_col, map_col = st.columns([3, 2])
     
     with chart_col:
-        st.subheader("📈 Weekly Spend, Revenue, and ROAS Trajectory")
+        st.subheader("📈 Weekly Spend, Revenue, and ROAS")
         
         fig_trend = go.Figure()
         # Bar chart for Spend
@@ -353,7 +353,7 @@ with tab1:
         st.plotly_chart(fig_trend, use_container_width=True)
 
     with map_col:
-        st.subheader("🗺️ Geographic Coverage (Egypt Governorates)")
+        st.subheader("🗺️ Regional Coverage")
         
         # Regional Coordinates for Stylized Egypt Bubble plot
         regional_df = data.get("regional_breakdown", pd.DataFrame()).copy()
@@ -383,7 +383,7 @@ with tab1:
             hover_data=["Population (M)", "Reach", "Revenue (EGP)", "Conversion Rate"],
             color_continuous_scale=[[0, BRAND_COLORS["red"]], [0.5, BRAND_COLORS["gold"]], [1, BRAND_COLORS["green"]]],
             size_max=35,
-            title="Interactive Regional Scatter Map (Revenue Bubble Size / Color by ROAS)"
+            title="Regional Revenue and ROAS"
         )
         
         # High styling to make it resemble a stylized geographic locator
@@ -428,7 +428,7 @@ with tab1:
     with o2:
         st.markdown(f"""
         <div style="background-color: #121f35; border-radius: 8px; padding: 20px; border-left: 4px solid {BRAND_COLORS["teal"]};">
-            <h4 style="margin: 0 0 10px 0; color: #00F2FE;">🔍 Core SWOT Insights</h4>
+            <h4 style="margin: 0 0 10px 0; color: #00F2FE;">🔍 SWOT Analysis</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 11px; line-height: 1.4;">
                 <div><b style="color: #00FF87;">🟢 STRENGTHS</b><br/>Competitive pricing, local warranty, strong distributor network.</div>
                 <div><b style="color: #FF416C;">🔴 WEAKNESSES</b><br/>Low brand recognition vs. international giants (Anker, Baseus).</div>
@@ -441,7 +441,7 @@ with tab1:
 
 # ==================== TAB 2: CHANNELS & BUDGET ====================
 with tab2:
-    st.subheader("📊 Media Channels Allocation & Spend Analytics")
+    st.subheader("📊 Channels & Budget")
     
     col_chan1, col_chan2 = st.columns([3, 2])
     
@@ -462,7 +462,7 @@ with tab2:
                     "Planned": BRAND_COLORS["teal"],
                     "Reserved": BRAND_COLORS["slate"]
                 },
-                title="Marketing Budget Allocation & Operational Status"
+                title="Budget Allocation & Status"
             )
             fig_channels.update_traces(texttemplate='%{text}%', textposition='outside')
             fig_channels.update_layout(
@@ -495,7 +495,7 @@ with tab2:
             )
             st.plotly_chart(fig_donut, use_container_width=True)
             
-    st.markdown("### 📋 Media Plan Ledger & KPIs")
+    st.markdown("### 📋 Media Plan & KPIs")
     if not filtered_channels.empty:
         # Format columns for display
         df_display = filtered_channels.copy()
@@ -513,8 +513,8 @@ with tab2:
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown(f"""
     <div style="background-color: #111a2e; border: 1px solid #1e2d4a; border-radius: 12px; padding: 25px;">
-        <h3 style="color: #d4af37; margin: 0 0 10px 0; font-family: 'Playfair Display', serif;">🎛️ Executive ROI & Revenue Budget Planner Simulator</h3>
-        <p style="color: #a0aec0; font-size: 13px; margin-bottom: 20px;">Use this sandbox tool to simulate budget re-allocations, change ad-spend scale, adjust expected ROAS, and see projected Q3 profit outcomes immediately.</p>
+        <h3 style="color: #d4af37; margin: 0 0 10px 0; font-family: 'Playfair Display', serif;">🎛️ ROI Simulator</h3>
+        <p style="color: #a0aec0; font-size: 13px; margin-bottom: 20px;">Use this sandbox tool to simulate budget re-allocations and project profit outcomes.</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -558,7 +558,7 @@ with tab2:
 
 # ==================== TAB 3: TARGET AUDIENCE & GEOGRAPHY ====================
 with tab3:
-    st.subheader("🎯 Target Audience Analysis & Reach Matrix")
+    st.subheader("🎯 Target Audience & Reach")
     
     aud_col1, aud_col2 = st.columns([3, 2])
     
@@ -581,7 +581,7 @@ with tab3:
                     "Low": BRAND_COLORS["slate"]
                 },
                 size_max=50,
-                title="Segment Attractiveness Map (Size = Est. Reach)"
+                title="Audience Size & Potential"
             )
             fig_aud.update_traces(textposition='top center')
             fig_aud.update_layout(
@@ -595,7 +595,7 @@ with tab3:
             st.plotly_chart(fig_aud, use_container_width=True)
             
     with aud_col2:
-        st.markdown("### 👥 Egypt Target Market Segments Profile")
+        st.markdown("### 👥 Target Market Segments")
         if "target_audience" in data:
             for idx, row in data["target_audience"].iterrows():
                 priority_color = BRAND_COLORS["gold"] if row["Priority"] == "High" else (BRAND_COLORS["teal"] if row["Priority"] == "Medium" else "#a0aec0")
@@ -612,7 +612,7 @@ with tab3:
                 """, unsafe_allow_html=True)
                 
     st.markdown("<hr style='border-color: #1e2d4a;'/>", unsafe_allow_html=True)
-    st.subheader("🗺️ Detailed Regional Breakdowns")
+    st.subheader("🗺️ Regional Breakdowns")
     
     if "regional_breakdown" in data:
         reg_df = data["regional_breakdown"].copy()
@@ -663,7 +663,7 @@ with tab3:
 
 # ==================== TAB 4: TIMELINE & CALENDAR ====================
 with tab4:
-    st.subheader("📅 Operational Roadmaps & Content Calendars")
+    st.subheader("📅 Campaign Timeline & Calendar")
     
     # 1. Gantt Timeline View
     if "timeline" in data:
@@ -687,7 +687,7 @@ with tab4:
 
     # 2. Content Calendar Spreadsheet Search Layout
     st.markdown("<hr style='border-color: #1e2d4a;'/>", unsafe_allow_html=True)
-    st.subheader("📰 Weekly Social Media Content Plan Search Engine")
+    st.subheader("📰 Content Calendar")
     
     if "content_calendar" in data:
         cc_df = data["content_calendar"].copy()
@@ -718,7 +718,7 @@ with tab4:
 
 # ==================== TAB 5: COMPETITORS & SWOT ====================
 with tab5:
-    st.subheader("⚔️ Competitive Intelligence & Market Positioning")
+    st.subheader("⚔️ Competitor Analysis")
     
     comp_col1, comp_col2 = st.columns([3, 2])
     
@@ -735,7 +735,7 @@ with tab5:
                 color="Competitor",
                 hover_data=["Price Positioning", "Threat Level"],
                 size_max=45,
-                title="Market Share vs Est. Digital Ad Spend (Bubble Size = Social Followers)"
+                title="Market Share vs Ad Spend"
             )
             fig_comp.update_layout(
                 paper_bgcolor='rgba(0,0,0,0)',
@@ -748,7 +748,7 @@ with tab5:
             st.plotly_chart(fig_comp, use_container_width=True)
             
     with comp_col2:
-        st.markdown("### 🏆 Competitors Landscape Profiles")
+        st.markdown("### 🏆 Competitor Profiles")
         if "competitor_analysis" in data:
             for idx, row in data["competitor_analysis"].iterrows():
                 threat_color = BRAND_COLORS["red"] if row["Threat Level"] == "High" else (BRAND_COLORS["gold"] if row["Threat Level"] == "Medium" else BRAND_COLORS["green"])
@@ -768,7 +768,7 @@ with tab5:
 
 # ==================== TAB 6: RISK & BRIEFING ====================
 with tab6:
-    st.subheader("⚠️ Risk Register & Strategic Action Plan")
+    st.subheader("⚠️ Risk Register")
     
     risk_col1, risk_col2 = st.columns([3, 2])
     
@@ -796,7 +796,7 @@ with tab6:
                 hover_data=["Risk Description", "Probability", "Impact", "Mitigation Strategy"],
                 color_continuous_scale=[[0, BRAND_COLORS["green"]], [0.5, BRAND_COLORS["gold"]], [1, BRAND_COLORS["red"]]],
                 size_max=35,
-                title="Probability vs Impact Matrix Heatmap"
+                title="Risk Matrix"
             )
             fig_risk.update_traces(textposition='top center', marker=dict(size=20))
             
@@ -827,7 +827,7 @@ with tab6:
             st.plotly_chart(fig_risk, use_container_width=True)
             
     with risk_col2:
-        st.markdown("### 🛡️ Core Risks & Mitigations Checklist")
+        st.markdown("### 🛡️ Risk Mitigations")
         if "risk_register" in data:
             for idx, row in data["risk_register"].copy().dropna(subset=["Risk ID"]).iterrows():
                 score_color = BRAND_COLORS["red"] if row["Risk Score"] >= 9 else (BRAND_COLORS["gold"] if row["Risk Score"] >= 4 else BRAND_COLORS["green"])
@@ -842,7 +842,7 @@ with tab6:
                 """, unsafe_allow_html=True)
                 
     st.markdown("<hr style='border-color: #1e2d4a;'/>", unsafe_allow_html=True)
-    st.subheader("📊 Financial Summary & Profit Ledger Analysis")
+    st.subheader("📊 Financial Summary")
     
     # Financial Statement View
     if "financial_summary" in data:
