@@ -3,9 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-import pdfkit
-from jinja2 import Environment, BaseLoader
-import base64
+
 # Set Streamlit Page Configuration
 st.set_page_config(
     page_title="Campaign Performance Analysis - Summer Connect 2026",
@@ -155,63 +153,6 @@ def load_excel_data(path):
 
 data = load_excel_data(excel_path)
 
-def generate_pdf_report(data):
-    html_template = """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-            body { font-family: 'Arial', sans-serif; color: #1E293B; }
-            h1 { color: #0F2C59; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; }
-            table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            th { background-color: #0F2C59; color: white; }
-            .metric { font-size: 16px; font-weight: bold; color: #D4AF37; }
-        </style>
-    </head>
-    <body>
-        <h1>Campaign Performance Analysis</h1>
-        <p>Executive Summary PDF Report</p>
-        
-        <h2>Top Level Metrics</h2>
-        <table>
-            <tr>
-                <th>Total Reach</th>
-                <th>Campaign Spend (EGP)</th>
-                <th>Gross Revenue (EGP)</th>
-                <th>Average ROAS</th>
-            </tr>
-            <tr>
-                <td class="metric">3,247,891</td>
-                <td class="metric">4,500,000</td>
-                <td class="metric">17,110,000</td>
-                <td class="metric">3.80x</td>
-            </tr>
-        </table>
-        
-        <h2>Regional Breakdown</h2>
-        {{ regional_html }}
-    </body>
-    </html>
-    """
-    env = Environment(loader=BaseLoader())
-    template = env.from_string(html_template)
-    
-    if "regional_breakdown" in data:
-        regional_html = data["regional_breakdown"].to_html(index=False, border=0)
-    else:
-        regional_html = "<p>No regional data available.</p>"
-        
-    html_out = template.render(regional_html=regional_html)
-    
-    try:
-        # Options to quiet wkhtmltopdf output
-        options = {'quiet': ''}
-        pdf = pdfkit.from_string(html_out, False, options=options)
-        return pdf, None
-    except Exception as e:
-        return None, str(e)
-
 # Custom color palette mapping
 BRAND_COLORS = {
     "gold": "#D4AF37",
@@ -274,19 +215,6 @@ if st.sidebar.button("Generate CSV of Active Metrics"):
             file_name="Egypt_Campaign_Weekly_Performance.csv",
             mime="text/csv",
         )
-
-if st.sidebar.button("📄 Generate PDF Report"):
-    with st.spinner("Generating PDF..."):
-        pdf_bytes, err = generate_pdf_report(data)
-        if pdf_bytes:
-            st.sidebar.download_button(
-                label="⬇️ Click to Save PDF",
-                data=pdf_bytes,
-                file_name="Campaign_Report.pdf",
-                mime="application/pdf",
-            )
-        else:
-            st.sidebar.error("PDF engine (wkhtmltopdf) not found. This feature will work correctly once deployed on Streamlit Cloud.")
 
 # ----------------- MAIN APP HEADER -----------------
 st.markdown("""
